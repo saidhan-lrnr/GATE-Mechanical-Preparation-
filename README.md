@@ -1,1 +1,1966 @@
 # GATE-Mechanical-Preparation-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE ME Preparation Dashboard</title>
+    <style>
+        :root {
+            --color-primary: #2196F3;
+            --color-primary-dark: #1976D2;
+            --color-success: #4CAF50;
+            --color-warning: #FF9800;
+            --color-danger: #F44336;
+            --color-info: #00BCD4;
+            --color-bg: #f5f5f5;
+            --color-surface: #ffffff;
+            --color-text: #212121;
+            --color-text-secondary: #757575;
+            --color-border: #e0e0e0;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+            padding: 30px 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: var(--color-surface);
+            color: var(--color-text);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+        }
+
+        .tab-btn.active {
+            background: var(--color-primary);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--color-surface);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: var(--color-primary);
+            font-size: 1.1em;
+        }
+
+        .stat-box {
+            background: var(--color-bg);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .stat-box.high {
+            border-left-color: var(--color-success);
+        }
+
+        .stat-box.medium {
+            border-left-color: var(--color-warning);
+        }
+
+        .stat-box.low {
+            border-left-color: var(--color-danger);
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: var(--color-text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-success), var(--color-info));
+            transition: width 0.3s;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: var(--color-primary);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .subjects-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .subject-card {
+            background: var(--color-surface);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            padding: 15px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .subject-card:hover {
+            border-color: var(--color-primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .subject-card h4 {
+            margin-bottom: 10px;
+            color: var(--color-primary);
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .priority-high {
+            background: rgba(244, 67, 54, 0.15);
+            color: var(--color-danger);
+        }
+
+        .priority-medium {
+            background: rgba(255, 152, 0, 0.15);
+            color: var(--color-warning);
+        }
+
+        .priority-low {
+            background: rgba(76, 175, 80, 0.15);
+            color: var(--color-success);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--color-surface);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--color-primary);
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: var(--color-text-secondary);
+            padding: 0;
+            width: auto;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: var(--color-text);
+            transform: none;
+        }
+
+        .chart-container {
+            background: var(--color-bg);
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .ranking-list {
+            list-style: none;
+        }
+
+        .ranking-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--color-bg);
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--color-info);
+        }
+
+        .ranking-item.high {
+            border-left-color: var(--color-danger);
+        }
+
+        .ranking-item.medium {
+            border-left-color: var(--color-warning);
+        }
+
+        .ranking-item.low {
+            border-left-color: var(--color-success);
+        }
+
+        .ranking-name {
+            font-weight: 500;
+        }
+
+        .ranking-value {
+            background: var(--color-primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .test-type {
+            display: inline-block;
+            padding: 4px 10px;
+            background: var(--color-bg);
+            border-radius: 4px;
+            font-size: 0.85em;
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        .btn-small {
+            padding: 6px 12px;
+            font-size: 0.9em;
+            margin: 5px 2px;
+        }
+
+        .btn-secondary {
+            background: var(--color-text-secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-text);
+        }
+
+        .btn-danger {
+            background: var(--color-danger);
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        .btn-success {
+            background: var(--color-success);
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+        }
+
+        .btn-info {
+            background: var(--color-info);
+        }
+
+        .btn-info:hover {
+            background: #0097a7;
+        }
+
+        .lecture-item {
+            background: var(--color-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid var(--color-primary);
+        }
+
+        .lecture-progress {
+            flex: 1;
+            margin: 0 15px;
+        }
+
+        .lecture-details {
+            display: none;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .lecture-details.active {
+            display: block;
+        }
+
+        .section-accordion {
+            margin-bottom: 15px;
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            background: var(--color-bg);
+            padding: 12px 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .section-header:hover {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .section-toggle {
+            transition: transform 0.3s;
+            font-size: 0.8em;
+        }
+
+        .section-toggle.open {
+            transform: rotate(180deg);
+        }
+
+        .section-content {
+            display: none;
+            padding: 15px;
+            background: var(--color-surface);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .link-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: var(--color-bg);
+            border-radius: 4px;
+            margin-bottom: 8px;
+        }
+
+        .link-text {
+            flex: 1;
+            word-break: break-word;
+        }
+
+        .link-url {
+            color: var(--color-primary);
+            text-decoration: none;
+            margin-right: 10px;
+            font-size: 0.85em;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .file-thumbnail {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border: 1px solid var(--color-border);
+            border-radius: 4px;
+            overflow: hidden;
+            background: var(--color-bg);
+        }
+
+        .file-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .file-thumbnail .file-remove {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            padding: 0;
+            font-size: 0.8em;
+            cursor: pointer;
+        }
+
+        .add-section-form {
+            background: var(--color-bg);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .three-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .three-col {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .daily-log-form {
+            background: var(--color-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .deployment-option {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .deployment-option h5 {
+            margin: 0 0 10px 0;
+            color: var(--color-primary);
+        }
+
+        .deployment-option ol {
+            background: var(--color-bg);
+            padding: 10px 20px;
+            border-radius: 4px;
+        }
+
+        .deployment-option a {
+            color: var(--color-primary);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .subjects-list {
+                grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 1.5em;
+            }
+
+            .tabs {
+                justify-content: flex-start;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 GATE Mechanical Engineering Prep Dashboard</h1>
+            <p>Track your progress, manage your preparation, and ace the exam!</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('dashboard')">Dashboard</button>
+            <button class="tab-btn" onclick="switchTab('subjects')">Subjects & Lectures</button>
+            <button class="tab-btn" onclick="switchTab('progress')">Daily Progress</button>
+            <button class="tab-btn" onclick="switchTab('tests')">Tests & Evaluation</button>
+            <button class="tab-btn" onclick="switchTab('analytics')">Analytics</button>
+            <button class="tab-btn" onclick="openDeploymentModal()" style="background: linear-gradient(135deg, #4CAF50, #45a049); color: white; margin-left: auto;">☁️ Remote Access</button>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📊 Overall Progress</h3>
+                    <div class="stat-box high">
+                        <div class="stat-label">Overall Completion</div>
+                        <div class="stat-value" id="overallProgress">0%</div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="overallProgressBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🎯 Days to Target</h3>
+                    <div class="form-group">
+                        <label>Set Target Date</label>
+                        <input type="date" id="targetDate" value="2026-02-01">
+                        <button onclick="setTargetDate()">Set Target</button>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Days Remaining</div>
+                        <div class="stat-value" id="daysRemaining">--</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Projected Days Left (Based on Progress)</div>
+                        <div class="stat-value" id="projectedDaysLeft">--</div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Quick Stats</h3>
+                    <div class="stat-box">
+                        <div class="stat-label">Subjects Started</div>
+                        <div class="stat-value" id="subjectsStarted">0/11</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Total Lectures</div>
+                        <div class="stat-value" id="totalLectures">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Tests Completed</div>
+                        <div class="stat-value" id="testsCompleted">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>🏆 Priority Ranking (Based on Exam Weightage)</h3>
+                <ul class="ranking-list" id="priorityRanking"></ul>
+            </div>
+        </div>
+
+        <!-- Subjects & Lectures Tab -->
+        <div id="subjects" class="tab-content">
+            <div class="form-group" style="margin-bottom: 30px;">
+                <label><strong>Select a Subject to View/Edit Lectures</strong></label>
+                <select id="subjectSelect" onchange="loadSubjectDetails()">
+                    <option value="">-- Choose Subject --</option>
+                </select>
+            </div>
+
+            <div id="subjectDetails" style="display: none;">
+                <div class="card">
+                    <h3 id="selectedSubjectName"></h3>
+                    <div class="form-group">
+                        <label>Weightage</label>
+                        <input type="number" id="subjectWeightage" readonly style="background: var(--color-bg);">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Score</label>
+                        <input type="number" id="targetScore" placeholder="e.g., 80" min="0" max="100">
+                        <button onclick="updateSubjectTarget()">Update Target</button>
+                    </div>
+
+                    <h4 style="margin-top: 20px; margin-bottom: 15px;">Lectures</h4>
+                    <div id="lecturesList"></div>
+
+                    <div class="form-group" style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--color-border);">
+                        <h4>Add New Lecture</h4>
+                        <div class="two-col">
+                            <input type="text" id="lectureName" placeholder="e.g., Stress & Strain Basics">
+                            <input type="number" id="lectureWeight" placeholder="Weight/Priority (1-10)" min="1" max="10" value="5">
+                        </div>
+                        <button onclick="addLecture()" style="margin-top: 10px; width: 100%; background: var(--color-success);">+ Add Lecture</button>
+                    </div>
+                    <input type="hidden" id="currentSubjectId">
+                </div>
+            </div>
+
+            <div class="subjects-list" id="subjectsGrid"></div>
+        </div>
+
+        <!-- Daily Progress Tab -->
+        <div id="progress" class="tab-content">
+            <div class="card daily-log-form">
+                <h3>📝 Daily Progress Log</h3>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="logDate">
+                </div>
+                <div class="form-group">
+                    <label>Subject</label>
+                    <select id="logSubject"></select>
+                </div>
+                <div class="form-group">
+                    <label>Lecture/Topic Covered</label>
+                    <input type="text" id="logTopic" placeholder="e.g., Stress and Strain - Basics">
+                </div>
+                <div class="form-group">
+                    <label>Progress (%) - Lecture wise completion</label>
+                    <input type="range" id="logProgress" min="0" max="100" value="0" oninput="updateProgressValue()">
+                    <span id="progressValue" style="font-weight: bold; color: var(--color-primary);">0%</span>
+                </div>
+                <div class="form-group">
+                    <label>Hours Studied</label>
+                    <input type="number" id="logHours" placeholder="e.g., 2.5" min="0" max="24" step="0.5">
+                </div>
+                <div class="form-group">
+                    <label>Notes/Observations</label>
+                    <textarea id="logNotes" placeholder="Strengths, weaknesses, topics to revise..." rows="4"></textarea>
+                </div>
+                <button onclick="logDailyProgress()" style="width: 100%;">✓ Log Progress</button>
+            </div>
+
+            <div class="card" style="margin-top: 30px;">
+                <h3>📅 Recent Logs</h3>
+                <div id="progressLogs"></div>
+            </div>
+        </div>
+
+        <!-- Tests & Evaluation Tab -->
+        <div id="tests" class="tab-content">
+            <div class="card" style="margin-bottom: 30px;">
+                <h3>📋 Schedule & Manage Tests</h3>
+                <div class="form-group">
+                    <label>Test Type</label>
+                    <select id="testType" onchange="updateTestOptions()">
+                        <option value="">-- Select Type --</option>
+                        <option value="topic">Topic-wise Test</option>
+                        <option value="subject">Subject-wise Test</option>
+                        <option value="full">Full Length Mock Test</option>
+                    </select>
+                </div>
+
+                <div id="testOptionsContainer" style="display: none;">
+                    <div class="form-group">
+                        <label id="testSelectionLabel"></label>
+                        <select id="testSelection"></select>
+                    </div>
+
+                    <div class="two-col">
+                        <div class="form-group">
+                            <label>Test Date</label>
+                            <input type="date" id="testDate">
+                        </div>
+                        <div class="form-group">
+                            <label>Test Time</label>
+                            <input type="time" id="testTime">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Difficulty Level</label>
+                        <select id="testDifficulty">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Questions Count (Full Length: 65)</label>
+                        <input type="number" id="testQuestions" placeholder="e.g., 20" min="5" max="65">
+                    </div>
+
+                    <button onclick="scheduleTest()" style="width: 100%;">📅 Schedule Test</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>🎯 Test Results & Performance</h3>
+                <div id="testsList"></div>
+
+                <div id="testResultsContainer" style="display: none; margin-top: 30px; padding-top: 30px; border-top: 1px solid var(--color-border);">
+                    <h4>Add Test Result</h4>
+                    <div class="form-group">
+                        <label>Select Test</label>
+                        <select id="resultTestSelect"></select>
+                    </div>
+                    <div class="two-col">
+                        <div class="form-group">
+                            <label>Score Obtained</label>
+                            <input type="number" id="scoreObtained" placeholder="0" min="0" max="100">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Marks</label>
+                            <input type="number" id="totalMarks" placeholder="100" min="0" value="100">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Time Taken (minutes)</label>
+                        <input type="number" id="timeTaken" placeholder="180" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Accuracy (%)</label>
+                        <input type="number" id="accuracy" placeholder="0" min="0" max="100">
+                    </div>
+                    <div class="form-group">
+                        <label>Remarks</label>
+                        <textarea id="resultRemarks" placeholder="Performance notes..." rows="3"></textarea>
+                    </div>
+                    <button onclick="submitTestResult()" style="width: 100%;">✓ Record Result</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📊 Subject-wise Progress</h3>
+                    <div id="subjectProgressChart"></div>
+                </div>
+
+                <div class="card">
+                    <h3>⏱️ Study Hours Trend</h3>
+                    <div id="hoursChart" class="chart-container">
+                        <p style="text-align: center; color: var(--color-text-secondary);">Track study hours daily</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>📈 Test Performance</h3>
+                    <div id="testPerformanceChart"></div>
+                </div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>🎓 Weak Areas Identification</h3>
+                <div id="weakAreasAnalysis"></div>
+            </div>
+
+            <div class="card" style="margin-top: 20px;">
+                <h3>📋 Study Statistics</h3>
+                <div class="stat-box">
+                    <div class="stat-label">Total Study Hours</div>
+                    <div class="stat-value" id="totalStudyHours">0</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Average Daily Study Time</div>
+                    <div class="stat-value" id="avgDailyTime">0h</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Most Studied Subject</div>
+                    <div class="stat-value" id="mostStudied">--</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">Average Test Score</div>
+                    <div class="stat-value" id="avgTestScore">--</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cloud Deployment Modal -->
+        <div id="deploymentModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>☁️ Remote Access & Cloud Deployment</h2>
+                    <button class="close-btn" onclick="closeDeploymentModal()">✕</button>
+                </div>
+
+                <div style="background: var(--color-bg); padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                    <h4>🚀 Quick Export & Deploy</h4>
+                    <p style="font-size: 0.9em; color: var(--color-text-secondary); margin-bottom: 15px;">
+                        Export your dashboard as a single HTML file and access it from anywhere!
+                    </p>
+                    <button onclick="exportDashboard()" style="width: 100%; background: var(--color-success); margin-bottom: 10px;">
+                        📥 Export as HTML File
+                    </button>
+                    <p style="font-size: 0.8em; color: var(--color-text-secondary); text-align: center;">
+                        Your data will be saved inside the file (no backend needed!)
+                    </p>
+                </div>
+
+                <div style="border-top: 2px solid var(--color-border); padding-top: 20px;">
+                    <h4 style="margin-bottom: 15px;">📖 Choose Your Hosting Platform</h4>
+
+                    <!-- Tiiny Host -->
+                    <div class="deployment-option">
+                        <h5>1. 🟦 Tiiny Host (Easiest - 30 seconds)</h5>
+                        <ol style="font-size: 0.9em; line-height: 1.8; margin: 10px 0;">
+                            <li>Click <strong>"Export as HTML File"</strong> above</li>
+                            <li>Go to <a href="https://tiiny.host" target="_blank" style="color: var(--color-primary);">tiiny.host</a></li>
+                            <li>Click <strong>"Upload"</strong> and select your downloaded HTML file</li>
+                            <li>Enter a custom link name (e.g., "GATE-ME-Dashboard")</li>
+                            <li>Click <strong>"Publish"</strong> - Done! 🎉</li>
+                            <li>Share your link with any device</li>
+                        </ol>
+                        <p style="font-size: 0.8em; color: var(--color-warning);"><strong>✓ Best for:</strong> Quick sharing, no account needed</p>
+                    </div>
+
+                    <!-- GitHub Pages -->
+                    <div class="deployment-option" style="margin-top: 15px;">
+                        <h5>2. 🐙 GitHub Pages (Free & Professional)</h5>
+                        <ol style="font-size: 0.9em; line-height: 1.8; margin: 10px 0;">
+                            <li>Create a GitHub account at <a href="https://github.com" target="_blank" style="color: var(--color-primary);">github.com</a></li>
+                            <li>Create a new repository named <strong>"gate-me-dashboard"</strong></li>
+                            <li>Upload your exported HTML file as <strong>"index.html"</strong></li>
+                            <li>Go to <strong>Settings → Pages</strong></li>
+                            <li>Select <strong>"main"</strong> branch and <strong>"(root)"</strong> folder</li>
+                            <li>Click <strong>"Save"</strong> - Your site goes live in ~1 minute!</li>
+                            <li>Access at: <strong>yourusername.github.io/gate-me-dashboard</strong></li>
+                        </ol>
+                        <p style="font-size: 0.8em; color: var(--color-warning);"><strong>✓ Best for:</strong> Professional URL, version control, permanent hosting</p>
+                    </div>
+
+                    <!-- Cloudflare Pages -->
+                    <div class="deployment-option" style="margin-top: 15px;">
+                        <h5>3. ☁️ Cloudflare Pages (Super Fast)</h5>
+                        <ol style="font-size: 0.9em; line-height: 1.8; margin: 10px 0;">
+                            <li>Sign up at <a href="https://pages.cloudflare.com" target="_blank" style="color: var(--color-primary);">pages.cloudflare.com</a></li>
+                            <li>Connect your GitHub account</li>
+                            <li>Select your dashboard repository</li>
+                            <li>Framework: <strong>"None"</strong> (for static HTML)</li>
+                            <li>Build command: Leave blank</li>
+                            <li>Deploy! Your dashboard is live on Cloudflare CDN</li>
+                        </ol>
+                        <p style="font-size: 0.8em; color: var(--color-warning);"><strong>✓ Best for:</strong> Fastest performance globally</p>
+                    </div>
+                </div>
+
+                <div style="background: rgba(76, 175, 80, 0.1); border-left: 4px solid var(--color-success); padding: 12px; margin-top: 15px; border-radius: 4px;">
+                    <strong style="color: var(--color-success);">💡 Pro Tips:</strong>
+                    <ul style="font-size: 0.85em; margin: 8px 0; padding-left: 20px;">
+                        <li>Your data is saved in the HTML file - no backend needed</li>
+                        <li>All three options are completely free</li>
+                        <li>Re-export and upload whenever you make changes</li>
+                        <li>Access from phones, tablets, laptops - anywhere!</li>
+                    </ul>
+                </div>
+
+                <button onclick="closeDeploymentModal()" class="btn-secondary" style="width: 100%; margin-top: 20px;">Close</button>
+            </div>
+        </div>
+
+        <!-- Edit Lecture Modal -->
+        <div id="editLectureModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Edit Lecture</h2>
+                    <button class="close-btn" onclick="closeEditModal()">✕</button>
+                </div>
+                <div class="form-group">
+                    <label>Lecture Name</label>
+                    <input type="text" id="editLectureName" placeholder="Enter lecture name">
+                </div>
+                <div class="form-group">
+                    <label>Weight/Priority (1-10)</label>
+                    <input type="number" id="editLectureWeight" min="1" max="10" value="5">
+                </div>
+                <div class="form-group">
+                    <label>Progress (%)</label>
+                    <input type="range" id="editLectureProgress" min="0" max="100" value="0" oninput="updateEditProgressValue()">
+                    <p style="text-align: center; font-weight: bold; color: var(--color-primary); margin-top: 8px;">
+                        <span id="editProgressValue">0%</span>
+                    </p>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <button onclick="saveEditedLecture()" style="flex: 1; background: var(--color-success);">✓ Save Changes</button>
+                    <button onclick="closeEditModal()" class="btn-secondary" style="flex: 1;">Cancel</button>
+                </div>
+                <input type="hidden" id="editSubjectId">
+                <input type="hidden" id="editLectureIdx">
+            </div>
+        </div>
+
+        <!-- Lecture Details Modal -->
+        <div id="lectureDetailsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="lectureDetailsTitle">Lecture Details</h2>
+                    <button class="close-btn" onclick="closeLectureDetailsModal()">✕</button>
+                </div>
+
+                <div class="add-section-form">
+                    <h4>Add New Section</h4>
+                    <div class="form-group">
+                        <label>Section Name</label>
+                        <input type="text" id="newSectionName" placeholder="e.g., Links, Notes, Resources">
+                    </div>
+                    <button onclick="addSection()" style="width: 100%; background: var(--color-info);">+ Add Section</button>
+                </div>
+
+                <div id="lectureDetailsSections"></div>
+
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button onclick="closeLectureDetailsModal()" class="btn-secondary" style="flex: 1;">Close</button>
+                </div>
+                <input type="hidden" id="detailsSubjectId">
+                <input type="hidden" id="detailsLectureIdx">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Structure
+        const data = {
+            subjects: [
+                { id: 1, name: 'Engineering Mathematics', weightage: 13, priority: 'High', color: '#e74c3c', lectures: [] },
+                { id: 2, name: 'Engineering Mechanics', weightage: 4, priority: 'Low', color: '#3498db', lectures: [] },
+                { id: 3, name: 'Mechanics of Materials', weightage: 8, priority: 'Medium', color: '#f39c12', lectures: [] },
+                { id: 4, name: 'Machine Design', weightage: 5, priority: 'Medium', color: '#9b59b6', lectures: [] },
+                { id: 5, name: 'Theory of Machines & Vibrations', weightage: 8, priority: 'Medium', color: '#1abc9c', lectures: [] },
+                { id: 6, name: 'Fluid Mechanics', weightage: 7, priority: 'Medium', color: '#e67e22', lectures: [] },
+                { id: 7, name: 'Thermodynamics', weightage: 6, priority: 'Medium', color: '#2ecc71', lectures: [] },
+                { id: 8, name: 'Heat Transfer', weightage: 8, priority: 'Medium', color: '#34495e', lectures: [] },
+                { id: 9, name: 'Manufacturing Engineering', weightage: 16, priority: 'High', color: '#c0392b', lectures: [] },
+                { id: 10, name: 'Industrial Engineering', weightage: 8, priority: 'Medium', color: '#16a085', lectures: [] },
+                { id: 11, name: 'General Aptitude', weightage: 15, priority: 'High', color: '#8e44ad', lectures: [] }
+            ],
+            progressLogs: [],
+            tests: [],
+            testResults: [],
+            targetDate: new Date('2026-02-01'),
+            targets: {}
+        };
+
+        // Initialize
+        function init() {
+            setTodayDate();
+            populateSubjectSelects();
+            renderSubjectsGrid();
+            updateDashboard();
+            updatePriorityRanking();
+        }
+
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('logDate').value = today;
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function populateSubjectSelects() {
+            const subjectSelect = document.getElementById('subjectSelect');
+            const logSubject = document.getElementById('logSubject');
+
+            subjectSelect.innerHTML = '<option value="">-- Choose Subject --</option>';
+            logSubject.innerHTML = '';
+
+            data.subjects.forEach(subject => {
+                const option1 = document.createElement('option');
+                option1.value = subject.id;
+                option1.textContent = subject.name;
+                subjectSelect.appendChild(option1);
+
+                const option2 = document.createElement('option');
+                option2.value = subject.id;
+                option2.textContent = subject.name;
+                logSubject.appendChild(option2);
+            });
+        }
+
+        function renderSubjectsGrid() {
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = '';
+
+            data.subjects.forEach(subject => {
+                const card = document.createElement('div');
+                card.className = 'subject-card';
+                const progress = calculateSubjectProgress(subject.id);
+                const completed = subject.lectures.filter(l => l.progress === 100).length;
+
+                card.innerHTML = `
+                    <div class="priority-badge priority-${subject.priority.toLowerCase()}">
+                        ${subject.priority} Priority | ${subject.weightage}% Weightage
+                    </div>
+                    <h4>${subject.name}</h4>
+                    <p style="margin-bottom: 10px; color: var(--color-text-secondary);">
+                        ${completed}/${subject.lectures.length} Lectures Completed
+                    </p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress}%"></div>
+                    </div>
+                    <p style="margin-top: 8px; font-weight: 600; color: var(--color-primary);">${progress}% Complete</p>
+                    <button class="btn-small" onclick="openSubjectDetails(${subject.id})">View Details</button>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openSubjectDetails(subjectId) {
+            document.getElementById('subjectSelect').value = subjectId;
+            loadSubjectDetails();
+            switchTab('subjects');
+        }
+
+        function loadSubjectDetails() {
+            const subjectId = parseInt(document.getElementById('subjectSelect').value);
+            const details = document.getElementById('subjectDetails');
+            
+            if (!subjectId || subjectId === '') {
+                details.style.display = 'none';
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            if (!subject) {
+                details.style.display = 'none';
+                return;
+            }
+            
+            details.style.display = 'block';
+            document.getElementById('selectedSubjectName').textContent = subject.name;
+            document.getElementById('subjectWeightage').value = subject.weightage + '%';
+            document.getElementById('targetScore').value = data.targets[subjectId] || '';
+            document.getElementById('currentSubjectId').value = subjectId;
+
+            renderLecturesList(subject);
+        }
+
+        function renderLecturesList(subject) {
+            const container = document.getElementById('lecturesList');
+            if (subject.lectures.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-secondary);">No lectures added yet. Add one below!</p>';
+                return;
+            }
+
+            container.innerHTML = subject.lectures.map((lecture, idx) => `
+                <div class="lecture-item">
+                    <div>
+                        <strong>${lecture.name}</strong>
+                        <p style="font-size: 0.9em; color: var(--color-text-secondary); margin: 5px 0;">
+                            Weight: ${lecture.weight}/10 | Priority: ${lecture.weight >= 7 ? '🔴' : lecture.weight >= 4 ? '🟡' : '🟢'}
+                        </p>
+                    </div>
+                    <div class="lecture-progress" style="margin: 0;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${lecture.progress}%"></div>
+                        </div>
+                        <p style="font-size: 0.85em; text-align: center; margin-top: 5px; color: var(--color-primary); font-weight: 600;">
+                            ${lecture.progress}%
+                        </p>
+                    </div>
+                    <button class="btn-small" onclick="openEditLectureModal(${subject.id}, ${idx})" style="background: var(--color-primary); color: white;">Edit</button>
+                    <button class="btn-small btn-info" onclick="openLectureDetailsModal(${subject.id}, ${idx})">Details</button>
+                    <button class="btn-small btn-danger" onclick="deleteLecture(${subject.id}, ${idx})">Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function addLecture() {
+            const subjectId = parseInt(document.getElementById('subjectSelect').value);
+            const name = document.getElementById('lectureName').value.trim();
+            const weight = parseInt(document.getElementById('lectureWeight').value) || 5;
+
+            if (!name || !subjectId) {
+                alert('Please select a subject and enter lecture name');
+                return;
+            }
+
+            if (weight < 1 || weight > 10) {
+                alert('Weight must be between 1 and 10');
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            subject.lectures.push({ name, weight, progress: 0, sections: [] });
+
+            document.getElementById('lectureName').value = '';
+            document.getElementById('lectureWeight').value = '';
+
+            renderLecturesList(subject);
+            updateDashboard();
+            alert('✓ Lecture added successfully!');
+        }
+
+        function deleteLecture(subjectId, index) {
+            if (confirm('Are you sure you want to delete this lecture?')) {
+                const subject = data.subjects.find(s => s.id === subjectId);
+                subject.lectures.splice(index, 1);
+                renderLecturesList(subject);
+                updateDashboard();
+                alert('✓ Lecture deleted!');
+            }
+        }
+
+        function openEditLectureModal(subjectId, lectureIdx) {
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const lecture = subject.lectures[lectureIdx];
+            
+            document.getElementById('editLectureName').value = lecture.name;
+            document.getElementById('editLectureWeight').value = lecture.weight;
+            document.getElementById('editLectureProgress').value = lecture.progress;
+            document.getElementById('editProgressValue').textContent = lecture.progress + '%';
+            document.getElementById('editSubjectId').value = subjectId;
+            document.getElementById('editLectureIdx').value = lectureIdx;
+            document.getElementById('editLectureModal').classList.add('active');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editLectureModal').classList.remove('active');
+        }
+
+        function saveEditedLecture() {
+            const subjectId = parseInt(document.getElementById('editSubjectId').value);
+            const lectureIdx = parseInt(document.getElementById('editLectureIdx').value);
+            const name = document.getElementById('editLectureName').value.trim();
+            const weight = parseInt(document.getElementById('editLectureWeight').value) || 5;
+            const progress = parseInt(document.getElementById('editLectureProgress').value) || 0;
+
+            if (!name) {
+                alert('Please enter lecture name');
+                return;
+            }
+
+            if (weight < 1 || weight > 10) {
+                alert('Weight must be between 1 and 10');
+                return;
+            }
+
+            if (progress < 0 || progress > 100) {
+                alert('Progress must be between 0 and 100');
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const oldSections = subject.lectures[lectureIdx].sections;
+            subject.lectures[lectureIdx] = { name, weight, progress, sections: oldSections || [] };
+
+            closeEditModal();
+            renderLecturesList(subject);
+            updateDashboard();
+            alert('✓ Lecture updated successfully!');
+        }
+
+        function updateEditProgressValue() {
+            document.getElementById('editProgressValue').textContent = document.getElementById('editLectureProgress').value + '%';
+        }
+
+        function openLectureDetailsModal(subjectId, lectureIdx) {
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const lecture = subject.lectures[lectureIdx];
+
+            document.getElementById('lectureDetailsTitle').textContent = `${lecture.name} - Details & Resources`;
+            document.getElementById('detailsSubjectId').value = subjectId;
+            document.getElementById('detailsLectureIdx').value = lectureIdx;
+            document.getElementById('newSectionName').value = '';
+
+            if (!lecture.sections) {
+                lecture.sections = [];
+            }
+
+            renderLectureSections(lecture);
+            document.getElementById('lectureDetailsModal').classList.add('active');
+        }
+
+        function closeLectureDetailsModal() {
+            document.getElementById('lectureDetailsModal').classList.remove('active');
+        }
+
+        function addSection() {
+            const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+            const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+            const sectionName = document.getElementById('newSectionName').value.trim();
+
+            if (!sectionName) {
+                alert('Please enter section name');
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const lecture = subject.lectures[lectureIdx];
+
+            lecture.sections.push({
+                id: Date.now(),
+                name: sectionName,
+                links: [],
+                files: []
+            });
+
+            document.getElementById('newSectionName').value = '';
+            renderLectureSections(lecture);
+        }
+
+        function renderLectureSections(lecture) {
+            const container = document.getElementById('lectureDetailsSections');
+
+            if (!lecture.sections || lecture.sections.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-secondary); text-align: center;">No sections added yet. Add one above!</p>';
+                return;
+            }
+
+            container.innerHTML = lecture.sections.map((section, sIdx) => `
+                <div class="section-accordion">
+                    <div class="section-header" onclick="toggleSection(${sIdx})">
+                        <div>
+                            <strong>${section.name}</strong>
+                            <p style="font-size: 0.85em; color: var(--color-text-secondary); margin: 5px 0 0 0;">
+                                ${section.links.length} links | ${section.files.length} files
+                            </p>
+                        </div>
+                        <span class="section-toggle" id="toggle-${sIdx}">▼</span>
+                    </div>
+                    <div class="section-content" id="section-${sIdx}">
+                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border);">
+                            <h5 style="margin-bottom: 10px;">📎 Add Link</h5>
+                            <div class="two-col">
+                                <input type="text" id="linkTitle-${sIdx}" placeholder="Link title">
+                                <input type="text" id="linkUrl-${sIdx}" placeholder="https://example.com">
+                            </div>
+                            <button onclick="addLink(${sIdx})" style="width: 100%; margin-top: 10px; background: var(--color-success);">+ Add Link</button>
+                        </div>
+
+                        ${section.links.length > 0 ? `
+                            <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border);">
+                                <h5 style="margin-bottom: 10px;">Links in this section:</h5>
+                                ${section.links.map((link, lIdx) => `
+                                    <div class="link-item">
+                                        <div class="link-text">
+                                            <strong>${link.title}</strong><br>
+                                            <a href="${link.url}" target="_blank" class="link-url">🔗 Open</a>
+                                        </div>
+                                        <button class="btn-small btn-danger" onclick="deleteLink(${sIdx}, ${lIdx})">Delete</button>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        ` : ''}
+
+                        <div style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--color-border);">
+                            <h5 style="margin-bottom: 10px;">📄 Upload Notes/Files</h5>
+                            <input type="file" id="fileInput-${sIdx}" accept="image/*,.pdf" multiple onchange="handleFileUpload(${sIdx})">
+                            <p style="font-size: 0.8em; color: var(--color-text-secondary); margin-top: 5px;">Supported: Images (JPG, PNG), PDF</p>
+                        </div>
+
+                        ${section.files.length > 0 ? `
+                            <div>
+                                <h5 style="margin-bottom: 10px;">Uploaded Files:</h5>
+                                <div class="file-preview">
+                                    ${section.files.map((file, fIdx) => `
+                                        <div class="file-thumbnail">
+                                            ${file.type.startsWith('image/') ? `
+                                                <img src="${file.data}" alt="${file.name}" title="${file.name}">
+                                            ` : `
+                                                <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: var(--color-bg);">
+                                                    <span style="font-size: 0.8em; text-align: center; padding: 5px;">📎 ${file.name.substring(0, 8)}</span>
+                                                </div>
+                                            `}
+                                            <button class="file-remove" onclick="deleteFile(${sIdx}, ${fIdx})">✕</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <button class="btn-small btn-danger" onclick="deleteSection(${sIdx})" style="flex: 1;">Delete Section</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleSection(sIdx) {
+            const content = document.getElementById(`section-${sIdx}`);
+            const toggle = document.getElementById(`toggle-${sIdx}`);
+            content.classList.toggle('active');
+            toggle.classList.toggle('open');
+        }
+
+        function addLink(sIdx) {
+            const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+            const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+            const title = document.getElementById(`linkTitle-${sIdx}`).value.trim();
+            const url = document.getElementById(`linkUrl-${sIdx}`).value.trim();
+
+            if (!title || !url) {
+                alert('Please enter both title and URL');
+                return;
+            }
+
+            if (!url.startsWith('http')) {
+                alert('URL must start with http:// or https://');
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const lecture = subject.lectures[lectureIdx];
+            const section = lecture.sections[sIdx];
+
+            section.links.push({ title, url });
+
+            document.getElementById(`linkTitle-${sIdx}`).value = '';
+            document.getElementById(`linkUrl-${sIdx}`).value = '';
+
+            renderLectureSections(lecture);
+        }
+
+        function deleteLink(sIdx, lIdx) {
+            if (confirm('Delete this link?')) {
+                const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+                const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+                const subject = data.subjects.find(s => s.id === subjectId);
+                const lecture = subject.lectures[lectureIdx];
+                lecture.sections[sIdx].links.splice(lIdx, 1);
+                renderLectureSections(lecture);
+            }
+        }
+
+        function handleFileUpload(sIdx) {
+            const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+            const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+            const files = document.getElementById(`fileInput-${sIdx}`).files;
+
+            if (files.length === 0) return;
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const lecture = subject.lectures[lectureIdx];
+            const section = lecture.sections[sIdx];
+
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    section.files.push({
+                        name: file.name,
+                        type: file.type,
+                        data: e.target.result
+                    });
+                    renderLectureSections(lecture);
+                };
+                reader.readAsDataURL(file);
+            });
+
+            document.getElementById(`fileInput-${sIdx}`).value = '';
+        }
+
+        function deleteFile(sIdx, fIdx) {
+            if (confirm('Delete this file?')) {
+                const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+                const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+                const subject = data.subjects.find(s => s.id === subjectId);
+                const lecture = subject.lectures[lectureIdx];
+                lecture.sections[sIdx].files.splice(fIdx, 1);
+                renderLectureSections(lecture);
+            }
+        }
+
+        function deleteSection(sIdx) {
+            if (confirm('Delete this entire section?')) {
+                const subjectId = parseInt(document.getElementById('detailsSubjectId').value);
+                const lectureIdx = parseInt(document.getElementById('detailsLectureIdx').value);
+                const subject = data.subjects.find(s => s.id === subjectId);
+                const lecture = subject.lectures[lectureIdx];
+                lecture.sections.splice(sIdx, 1);
+                renderLectureSections(lecture);
+            }
+        }
+
+        function updateSubjectTarget() {
+            const subjectId = parseInt(document.getElementById('subjectSelect').value);
+            const target = parseInt(document.getElementById('targetScore').value);
+            data.targets[subjectId] = target;
+            alert('Target updated for this subject!');
+        }
+
+        function updateProgressValue() {
+            document.getElementById('progressValue').textContent = document.getElementById('logProgress').value + '%';
+        }
+
+        function logDailyProgress() {
+            const date = document.getElementById('logDate').value;
+            const subjectId = parseInt(document.getElementById('logSubject').value);
+            const topic = document.getElementById('logTopic').value.trim();
+            const progress = parseInt(document.getElementById('logProgress').value);
+            const hours = parseFloat(document.getElementById('logHours').value) || 0;
+            const notes = document.getElementById('logNotes').value.trim();
+
+            if (!date || !subjectId || !topic || hours <= 0) {
+                alert('Please fill all fields with valid data');
+                return;
+            }
+
+            const subject = data.subjects.find(s => s.id === subjectId);
+            const newLog = {
+                id: Date.now(),
+                date,
+                subject: subject.name,
+                subjectId,
+                topic,
+                progress,
+                hours,
+                notes
+            };
+
+            data.progressLogs.push(newLog);
+
+            // Update lecture progress
+            const lecture = subject.lectures.find(l => l.name.toLowerCase().includes(topic.toLowerCase()) || topic.toLowerCase().includes(l.name.toLowerCase()));
+            if (lecture) {
+                lecture.progress = Math.min(100, lecture.progress + progress);
+            }
+
+            // Clear form
+            document.getElementById('logTopic').value = '';
+            document.getElementById('logProgress').value = 0;
+            document.getElementById('logHours').value = '';
+            document.getElementById('logNotes').value = '';
+            document.getElementById('progressValue').textContent = '0%';
+
+            renderProgressLogs();
+            updateDashboard();
+            alert('Progress logged successfully!');
+        }
+
+        function renderProgressLogs() {
+            const container = document.getElementById('progressLogs');
+            if (data.progressLogs.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-secondary);">No progress logs yet.</p>';
+                return;
+            }
+
+            container.innerHTML = data.progressLogs.slice(-10).reverse().map(log => `
+                <div class="stat-box" style="border-left-color: var(--color-info);">
+                    <strong>${log.date} - ${log.subject}</strong>
+                    <p style="margin: 8px 0 0 0; color: var(--color-text-secondary);">${log.topic}</p>
+                    <p style="margin: 5px 0; font-size: 0.9em;">
+                        📊 Progress: ${log.progress}% | ⏱️ ${log.hours}h
+                        ${log.notes ? `<br>📝 ${log.notes}` : ''}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        function updateTestOptions() {
+            const testType = document.getElementById('testType').value;
+            const container = document.getElementById('testOptionsContainer');
+            const selectionLabel = document.getElementById('testSelectionLabel');
+            const testSelection = document.getElementById('testSelection');
+
+            if (!testType) {
+                container.style.display = 'none';
+                return;
+            }
+
+            container.style.display = 'block';
+            testSelection.innerHTML = '';
+
+            if (testType === 'topic') {
+                selectionLabel.textContent = 'Select Topic';
+                let topics = [];
+                data.subjects.forEach(s => {
+                    s.lectures.forEach(l => {
+                        topics.push(`${s.name} - ${l.name}`);
+                    });
+                });
+                if (topics.length === 0) topics.push('Add lectures to create topic tests');
+                topics.forEach(topic => {
+                    const option = document.createElement('option');
+                    option.value = topic;
+                    option.textContent = topic;
+                    testSelection.appendChild(option);
+                });
+            } else if (testType === 'subject') {
+                selectionLabel.textContent = 'Select Subject';
+                data.subjects.forEach(s => {
+                    const option = document.createElement('option');
+                    option.value = s.id;
+                    option.textContent = s.name;
+                    testSelection.appendChild(option);
+                });
+            } else if (testType === 'full') {
+                selectionLabel.textContent = 'Full Length Mock Test';
+                testSelection.innerHTML = '<option value="full">Complete GATE Pattern (65 questions, 3 hours)</option>';
+                document.getElementById('testQuestions').value = 65;
+            }
+        }
+
+        function scheduleTest() {
+            const testType = document.getElementById('testType').value;
+            const selection = document.getElementById('testSelection').value;
+            const testDate = document.getElementById('testDate').value;
+            const testTime = document.getElementById('testTime').value;
+            const difficulty = document.getElementById('testDifficulty').value;
+            const questions = parseInt(document.getElementById('testQuestions').value);
+
+            if (!selection || !testDate || !testTime || !questions) {
+                alert('Please fill all test details');
+                return;
+            }
+
+            const test = {
+                id: Date.now(),
+                type: testType,
+                name: selection,
+                date: testDate,
+                time: testTime,
+                difficulty,
+                questions,
+                status: 'Scheduled',
+                result: null
+            };
+
+            data.tests.push(test);
+
+            // Clear form
+            document.getElementById('testType').value = '';
+            document.getElementById('testOptionsContainer').style.display = 'none';
+            document.getElementById('testDate').value = '';
+            document.getElementById('testTime').value = '';
+            document.getElementById('testQuestions').value = '';
+
+            renderTestsList();
+            updateDashboard();
+            alert('Test scheduled successfully!');
+        }
+
+        function renderTestsList() {
+            const container = document.getElementById('testsList');
+            if (data.tests.length === 0) {
+                container.innerHTML = '<p style="color: var(--color-text-secondary);">No tests scheduled yet.</p>';
+                return;
+            }
+
+            container.innerHTML = data.tests.map(test => `
+                <div class="stat-box" style="border-left-color: ${test.status === 'Completed' ? '#4CAF50' : '#FF9800'};">
+                    <strong>${test.name}</strong>
+                    <div style="margin: 8px 0; font-size: 0.9em;">
+                        <span class="test-type">${test.type.toUpperCase()}</span>
+                        <span class="test-type">📅 ${test.date}</span>
+                        <span class="test-type">⏱️ ${test.time}</span>
+                        <span class="test-type">${test.difficulty}</span>
+                    </div>
+                    ${test.result ? `
+                        <p style="margin: 8px 0; color: var(--color-success); font-weight: 600;">
+                            Score: ${test.result.score}/${test.result.total} (${((test.result.score/test.result.total)*100).toFixed(1)}%)
+                        </p>
+                    ` : `
+                        <button class="btn-small" onclick="recordTestResult(${test.id})">Record Result</button>
+                    `}
+                </div>
+            `).join('');
+
+            // Update result test select
+            const resultSelect = document.getElementById('resultTestSelect');
+            resultSelect.innerHTML = '';
+            data.tests.filter(t => !t.result).forEach(test => {
+                const option = document.createElement('option');
+                option.value = test.id;
+                option.textContent = `${test.name} (${test.date})`;
+                resultSelect.appendChild(option);
+            });
+
+            document.getElementById('testResultsContainer').style.display = data.tests.length > 0 ? 'block' : 'none';
+        }
+
+        function recordTestResult(testId) {
+            document.getElementById('resultTestSelect').value = testId;
+        }
+
+        function submitTestResult() {
+            const testId = parseInt(document.getElementById('resultTestSelect').value);
+            const score = parseFloat(document.getElementById('scoreObtained').value);
+            const total = parseFloat(document.getElementById('totalMarks').value);
+            const time = parseInt(document.getElementById('timeTaken').value);
+            const accuracy = parseInt(document.getElementById('accuracy').value);
+
+            if (!testId || !score || !total) {
+                alert('Please enter score details');
+                return;
+            }
+
+            const test = data.tests.find(t => t.id === testId);
+            test.result = { score, total, time, accuracy };
+            test.status = 'Completed';
+
+            document.getElementById('scoreObtained').value = '';
+            document.getElementById('totalMarks').value = '100';
+            document.getElementById('timeTaken').value = '';
+            document.getElementById('accuracy').value = '';
+            document.getElementById('resultRemarks').value = '';
+
+            renderTestsList();
+            updateDashboard();
+            alert('Test result recorded!');
+        }
+
+        function calculateSubjectProgress(subjectId) {
+            const subject = data.subjects.find(s => s.id === subjectId);
+            if (subject.lectures.length === 0) return 0;
+            const avgProgress = subject.lectures.reduce((sum, l) => sum + l.progress, 0) / subject.lectures.length;
+            return Math.round(avgProgress);
+        }
+
+        function setTargetDate() {
+            const date = new Date(document.getElementById('targetDate').value);
+            data.targetDate = date;
+            updateDashboard();
+        }
+
+        function updateDashboard() {
+            // Calculate overall progress
+            let totalLectures = 0;
+            let completedLectures = 0;
+            data.subjects.forEach(s => {
+                totalLectures += s.lectures.length;
+                completedLectures += s.lectures.filter(l => l.progress === 100).length;
+            });
+            const overallProgress = totalLectures === 0 ? 0 : Math.round((completedLectures / totalLectures) * 100);
+            document.getElementById('overallProgress').textContent = overallProgress + '%';
+            document.getElementById('overallProgressBar').style.width = overallProgress + '%';
+
+            // Calculate days remaining
+            const today = new Date();
+            const daysLeft = Math.ceil((data.targetDate - today) / (1000 * 60 * 60 * 24));
+            document.getElementById('daysRemaining').textContent = daysLeft > 0 ? daysLeft : 'Target date passed!';
+
+            // Calculate projected days left based on progress
+            if (overallProgress > 0 && overallProgress < 100) {
+                const daysUsed = Math.ceil((new Date('2025-12-01') - new Date('2025-09-01')) / (1000 * 60 * 60 * 24));
+                const daysPerPercent = daysUsed / overallProgress;
+                const projectedDays = Math.ceil(daysPerPercent * (100 - overallProgress));
+                document.getElementById('projectedDaysLeft').textContent = projectedDays + ' days';
+            } else {
+                document.getElementById('projectedDaysLeft').textContent = '--';
+            }
+
+            // Update quick stats
+            const subjectsWithLectures = data.subjects.filter(s => s.lectures.length > 0).length;
+            document.getElementById('subjectsStarted').textContent = subjectsWithLectures + '/' + data.subjects.length;
+            document.getElementById('totalLectures').textContent = totalLectures;
+            document.getElementById('testsCompleted').textContent = data.tests.filter(t => t.status === 'Completed').length;
+
+            renderSubjectsGrid();
+            renderProgressLogs();
+            renderTestsList();
+            updateAnalytics();
+        }
+
+        function updatePriorityRanking() {
+            const container = document.getElementById('priorityRanking');
+            const sorted = [...data.subjects].sort((a, b) => b.weightage - a.weightage);
+
+            container.innerHTML = sorted.map(subject => {
+                const progress = calculateSubjectProgress(subject.id);
+                const priority = subject.priority.toLowerCase();
+                return `
+                    <li class="ranking-item ${priority}">
+                        <div>
+                            <div class="ranking-name">${subject.name}</div>
+                            <div style="font-size: 0.85em; color: var(--color-text-secondary);">
+                                Weightage: ${subject.weightage}%
+                            </div>
+                        </div>
+                        <div>
+                            <div class="ranking-value" style="background: ${priority === 'high' ? '#F44336' : priority === 'medium' ? '#FF9800' : '#4CAF50'};">
+                                ${progress}%
+                            </div>
+                        </div>
+                    </li>
+                `;
+            }).join('');
+        }
+
+        function updateAnalytics() {
+            // Subject-wise progress
+            const subjectChart = document.getElementById('subjectProgressChart');
+            const subjects = data.subjects.filter(s => s.lectures.length > 0);
+            if (subjects.length === 0) {
+                subjectChart.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary);">Add lectures to subjects to see progress</p>';
+            } else {
+                subjectChart.innerHTML = subjects.map(s => {
+                    const progress = calculateSubjectProgress(s.id);
+                    return `
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-size: 0.9em;">${s.name.substring(0, 25)}</span>
+                                <span style="font-weight: 600; color: var(--color-primary);">${progress}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${progress}%"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Study hours
+            const totalHours = data.progressLogs.reduce((sum, log) => sum + log.hours, 0);
+            document.getElementById('totalStudyHours').textContent = totalHours.toFixed(1) + 'h';
+
+            const uniqueDays = new Set(data.progressLogs.map(log => log.date)).size;
+            const avgDaily = uniqueDays > 0 ? (totalHours / uniqueDays).toFixed(1) : 0;
+            document.getElementById('avgDailyTime').textContent = avgDaily + 'h';
+
+            // Most studied subject
+            const subjectHours = {};
+            data.progressLogs.forEach(log => {
+                subjectHours[log.subject] = (subjectHours[log.subject] || 0) + log.hours;
+            });
+            const mostStudied = Object.keys(subjectHours).sort((a, b) => subjectHours[b] - subjectHours[a])[0] || '--';
+            document.getElementById('mostStudied').textContent = mostStudied;
+
+            // Average test score
+            const completedTests = data.tests.filter(t => t.result);
+            if (completedTests.length > 0) {
+                const avgScore = completedTests.reduce((sum, t) => sum + (t.result.score / t.result.total * 100), 0) / completedTests.length;
+                document.getElementById('avgTestScore').textContent = avgScore.toFixed(1) + '%';
+            } else {
+                document.getElementById('avgTestScore').textContent = '--';
+            }
+
+            // Test performance chart
+            const testChart = document.getElementById('testPerformanceChart');
+            if (completedTests.length === 0) {
+                testChart.innerHTML = '<p style="text-align: center; color: var(--color-text-secondary);">Complete tests to see performance</p>';
+            } else {
+                testChart.innerHTML = completedTests.slice(-5).map(test => {
+                    const score = ((test.result.score / test.result.total) * 100).toFixed(1);
+                    return `
+                        <div style="margin-bottom: 12px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+                                <span style="font-size: 0.9em;">${test.name.substring(0, 20)}</span>
+                                <span style="font-weight: 600; color: ${score >= 70 ? '#4CAF50' : score >= 50 ? '#FF9800' : '#F44336'};">${score}%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: ${score}%; background: ${score >= 70 ? '#4CAF50' : score >= 50 ? '#FF9800' : '#F44336'};"></div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // Weak areas
+            const weakAreas = document.getElementById('weakAreasAnalysis');
+            const subjectsWithLow = data.subjects.filter(s => s.lectures.length > 0 && calculateSubjectProgress(s.id) < 50);
+            if (subjectsWithLow.length === 0) {
+                weakAreas.innerHTML = '<p style="color: var(--color-success); text-align: center; font-weight: 600;">✓ All subjects are on track!</p>';
+            } else {
+                weakAreas.innerHTML = '<ul class="ranking-list">' + subjectsWithLow.map(s => {
+                    const progress = calculateSubjectProgress(s.id);
+                    return `
+                        <li class="ranking-item low">
+                            <div>
+                                <div class="ranking-name">${s.name}</div>
+                                <div style="font-size: 0.85em; color: var(--color-text-secondary);">Needs attention</div>
+                            </div>
+                            <div class="ranking-value" style="background: #F44336;">${progress}%</div>
+                        </li>
+                    `;
+                }).join('') + '</ul>';
+            }
+        }
+
+        function openDeploymentModal() {
+            document.getElementById('deploymentModal').classList.add('active');
+        }
+
+        function closeDeploymentModal() {
+            document.getElementById('deploymentModal').classList.remove('active');
+        }
+
+        function exportDashboard() {
+            // Get the entire page HTML
+            const htmlContent = document.documentElement.outerHTML;
+            
+            // Create a new HTML file with all data embedded
+            const exportData = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE ME Preparation Dashboard - Exported</title>
+</head>
+<body>
+${htmlContent.substring(htmlContent.indexOf('<style>'), htmlContent.indexOf('</body>') + 7)}
+<script>
+// Embedded data from export
+const importedData = ${JSON.stringify(data)};
+</script>
+</body>
+</html>`;
+
+            // Create blob and download
+            const blob = new Blob([exportData], { type: 'text/html;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'GATE-ME-Dashboard-' + new Date().toISOString().split('T')[0] + '.html');
+            link.style.visibility = 'hidden';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('✓ Dashboard exported successfully!\n\nNow upload it to:\n- Tiiny Host (easiest)\n- GitHub Pages\n- Cloudflare Pages\n\nClick "Remote Access" tab for instructions!');
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
